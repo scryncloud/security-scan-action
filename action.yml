@@ -1,5 +1,5 @@
 name: 'Scryn Security Scan'
-description: 'Run a Scryn security scan (DAST) against a target URL in your GitHub Actions workflow. Requires a Scryn account and API token (sign up at https://www.scryn.cloud).'
+description: 'Run Scryn DAST scans in GitHub Actions. Requires Scryn account and API token (scryn.cloud).'
 branding:
   icon: 'shield'
   color: 'blue'
