@@ -1,0 +1,63 @@
+name: 'Scryn Security Scan'
+description: 'Run a Scryn security scan (DAST) against a target URL in your GitHub Actions workflow'
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  target_url:
+    description: 'Target URL to scan (e.g. https://your-app.example.com)'
+    required: true
+  scan_type:
+    description: 'Scan type (baseline, full, spider, api)'
+    required: false
+    default: 'baseline'
+  api_url:
+    description: 'Scryn API base URL'
+    required: false
+    default: 'https://api.scryn.cloud'
+  wait_for_completion:
+    description: 'Wait for the scan to complete before finishing the step'
+    required: false
+    default: 'false'
+  timeout:
+    description: 'Timeout in seconds when waiting for completion'
+    required: false
+    default: '3600'
+  openapi_spec_url:
+    description: 'OpenAPI/Swagger spec URL (required when scan_type is api)'
+    required: false
+    default: ''
+  fail_on_high_or_critical:
+    description: 'Fail the step when the scan finds high or critical severity alerts'
+    required: false
+    default: 'true'
+
+outputs:
+  scan_id:
+    description: 'ID of the created scan'
+  status:
+    description: 'Final scan status (when wait_for_completion is true)'
+  total_alerts:
+    description: 'Total number of alerts (when wait_for_completion is true)'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run Scryn security scan
+      shell: bash
+      env:
+        SCRYN_API_URL: ${{ inputs.api_url }}
+        TARGET_URL: ${{ inputs.target_url }}
+        SCAN_TYPE: ${{ inputs.scan_type }}
+        WAIT_FOR_COMPLETION: ${{ inputs.wait_for_completion }}
+        TIMEOUT: ${{ inputs.timeout }}
+        OPENAPI_SPEC_URL: ${{ inputs.openapi_spec_url }}
+        FAIL_ON_HIGH_OR_CRITICAL: ${{ inputs.fail_on_high_or_critical }}
+      run: |
+        if [ -z "${SCRYN_API_TOKEN:-}" ]; then
+          echo "::error::SCRYN_API_TOKEN is required. Add it as a repository secret and pass it as env to this step (e.g. env: SCRYN_API_TOKEN: \${{ secrets.SCRYN_API_TOKEN }})."
+          exit 1
+        fi
+        chmod +x "$GITHUB_ACTION_PATH/scan.sh"
+        "$GITHUB_ACTION_PATH/scan.sh"
