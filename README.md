@@ -1,10 +1,10 @@
 # Scryn Security Scan Action
 
-Run a [Scryn](https://scryn.cloud) security scan (DAST) against a target URL in your GitHub Actions workflow. Scryn uses OWASP ZAP to find vulnerabilities in web applications and APIs.
+Run a [Scryn](https://www.scryn.cloud) security scan (DAST) against a target URL in your GitHub Actions workflow. Scryn uses OWASP ZAP to find vulnerabilities in web applications and APIs.
 
 ## Prerequisites
 
-- A [Scryn](https://scryn.cloud) account
+- A [Scryn](https://www.scryn.cloud) account
 - An API token with **Create scans** permission (create one in Scryn: **Profile → API tokens**)
 
 ## Setup
