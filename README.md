@@ -4,7 +4,7 @@ Run a [Scryn](https://www.scryn.cloud) security scan (DAST) against a target URL
 
 ## Prerequisites
 
-- A [Scryn](https://www.scryn.cloud) account
+- A [Scryn](https://www.scryn.cloud) account (sign up and see pricing at [scryn.cloud](https://www.scryn.cloud))
 - An API token with **Create scans** permission (create one in Scryn: **Profile → API tokens**)
 
 ## Setup
